@@ -1,0 +1,23 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "1. Creare le funzioni base in js: add, substrct, multipy, divide",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Copojacaab/Calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Copojacaab/Calculator/issues"
+  },
+  "homepage": "https://github.com/Copojacaab/Calculator#readme",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
