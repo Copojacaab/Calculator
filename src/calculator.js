@@ -1,7 +1,9 @@
+// OPERATORI
 let firstOperand;
 let operator;
 let secondOperand;
 
+// BASIC OPERATION
 function add(a, b) {
     return a + b;
 }
@@ -15,4 +17,19 @@ function divide(a,b) {
     return a / b;
 }
 
-module.exports = { add, substract, multiply, divide };
+
+function operate(firstOperand, secondOperand, operator){
+    switch(operator) {
+        case '+':
+            return add(firstOperand, secondOperand);
+        case '-':
+            return substract(firstOperand, secondOperand);
+        case '*':
+            return multiply(firstOperand, secondOperand);
+        case '/':
+            return divide(firstOperand, secondOperand);
+    }
+}
+
+module.exports = { add, substract, multiply, divide, operate };
+
