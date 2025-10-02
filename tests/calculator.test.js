@@ -1,4 +1,9 @@
+/**
+ * @jest-environment jsdom
+ */
+
 // TEST PER LE FUNZIONI DI CALCOLO BASE
+
 const { add, substract, multiply, divide, operate } = require('../src/calculator.js');
 
 test('add 2+3 equal 5', () => {
@@ -26,4 +31,21 @@ test('operate: 2*2 equal to 4', () => {
 });
 test('operate: 4/2 equal 2', () => {
     expect(operate(4,2,'/')).toBe(2);
+})
+
+// TEST INITCALCULATOR
+const { initCalculator } = require('../src/calculator.js');
+
+beforeEach(() => {
+  document.body.innerHTML = `
+    <button>1</button> <button>2</button> <button>2</button> <button>2</button>
+    <button>1</button> <button>2</button> <button>2</button> <button>2</button>
+    <button>1</button> <button>2</button> <button>2</button> <button>2</button>
+    <button>1</button> <button>2</button> <button>2</button> <button>2</button>
+  `;
+});
+
+test('take all the buttons', () => {
+    const buttons = initCalculator();
+    expect(buttons.length).toBe(16);
 })
