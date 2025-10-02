@@ -28,6 +28,8 @@ function operate(firstOperand, secondOperand, operator){
             return multiply(firstOperand, secondOperand);
         case '/':
             return divide(firstOperand, secondOperand);
+        default:
+            return null;
     }
 }
 

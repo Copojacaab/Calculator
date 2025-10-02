@@ -1,0 +1,38 @@
+#display {
+    height: 50px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    border-radius: 8px;
+    background: #222;
+    color: #fff;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#btnContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#row{
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    font-size: 1.5rem;
+    padding: 16px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #c7dced;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button:hover {
+    background-color: #698a99;
+}
