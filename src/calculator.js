@@ -1,7 +1,7 @@
 // OPERATORI
-let firstOperand;
+let firstOperand = '';
 let operator;
-let secondOperand;
+let secondOperand = '';
 
 // BASIC OPERATION
 function add(a, b) {
@@ -34,12 +34,19 @@ function operate(firstOperand, secondOperand, operator){
 }
 
 // funzione per "smistare gli event listener e i clicl"
-function handleNumberClick(){
-    console.log('diocane');
+function handleNumberClick(event){
+    const nuovoNumero = event.target.textContent;
+    // se non ho ancora l'operatore allora vuol dire che e' il primo numero inserito
+    if(!operator){
+        firstOperand += nuovoNumero; //come stringa
+    }else{
+        secondOperand += nuovoNumero;
+    }
 }
-function handleOperatorClick(){
+function handleOperatorClick(event){
+    operator = event.target.textContent;
+}
 
-}
 function handleClearClick(){
 
 }
@@ -53,16 +60,40 @@ function initCalculator(){
 
     buttons.forEach((button) => {
         if (button.dataset.type === 'number')
-            button.addEventListener('click', handleNumberClick());
+            button.addEventListener('click', handleNumberClick);
         if (button.dataset.type === 'operator')
-            button.addEventListener('click' , handleOperatorClick());
+            button.addEventListener('click' , handleOperatorClick);
         if (button.dataset.type === 'clear')
-            button.addEventListener('click', handleClearClick());
+            button.addEventListener('click', handleClearClick);
         if (button.dataset.type === 'equals')
-            button.addEventListener('click', handleEqualClick());
+            button.addEventListener('click', handleEqualClick);
     });
     
 }
 
+function getFirstOperand(){
+    return firstOperand;
+}
+
+function getSecondOperand(){
+    return secondOperand;
+}
+
+function getOperator(){
+    return operator;
+}
+
 initCalculator();
-module.exports = { add, substract, multiply, divide, operate ,initCalculator };
+module.exports = { 
+    add,
+    substract,
+    multiply,
+    divide,
+    operate,
+    initCalculator,
+    getFirstOperand, 
+    getSecondOperand, 
+    getOperator,
+};
+
+
