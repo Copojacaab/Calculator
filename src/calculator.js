@@ -7,148 +7,164 @@ let secondOperand = '';
 let displayText = '';
 
 // FLAG PER OPERAZIONE CONCATENATA
-let readyForChain = false
+let readyForChain = false;
 
 // BASIC OPERATION
 function add(a, b) {
-    return a + b;
+  return a + b;
 }
+
 function substract(a, b) {
-    return a - b;
+  return a - b;
 }
+
 function multiply(a, b) {
-    return a * b;
+  return a * b;
 }
+
 function divide(a, b) {
-    if (b === 0)
-        alert('Divisione per 0 non possibile');
-    return a / b;
+  if (b === 0){
+    alert('Divisione per 0 non possibile');
+    resetCalculator();
+    return;
+  }
+  return a / b;
 }
 
 function operate(firstOperand, secondOperand, operator) {
-    const a = Number(firstOperand);
-    const b = Number(secondOperand);
-    switch (operator) {
-        case '+':
-            return add(a, b);
-        case '-':
-            return substract(a, b);
-        case '*':
-            return multiply(a, b);
-        case '/':
-            return divide(a, b);
-        default:
-            return null;
-    }
+  const a = Number(firstOperand);
+  const b = Number(secondOperand);
+  switch (operator) {
+    case '+':
+      return add(a, b);
+    case '-':
+      return substract(a, b);
+    case '*':
+      return multiply(a, b);
+    case '/':
+      return divide(a, b);
+    default:
+      return null;
+  }
 }
 
 function handleNumberClick(event) {
-    const nuovoNumero = event.target.textContent;
-    if (!operator) {
-        firstOperand += nuovoNumero;
-        displayText = firstOperand;
-    } else {
-        secondOperand += nuovoNumero;
-        displayText = secondOperand;
-    }
-    updateDisplay(displayText);
+  const nuovoNumero = event.target.textContent;
+  if (!operator) {
+    firstOperand += nuovoNumero;
+    displayText = firstOperand;
+  } else {
+    secondOperand += nuovoNumero;
+    displayText = secondOperand;
+  }
+  updateDisplay(displayText);
 }
 
 function handleOperatorClick(event) {
-    const nuovoOperatore = event.target.textContent;
-    if (!operator) {
-        operator = nuovoOperatore;
-        secondOperand = '';  // reset del secondo operando all'inizio
-        displayText = operator;
-    }else if (secondOperand != ''){
-        operator = nuovoOperatore;
-        const result = operate(firstOperand, secondOperand, operator);
-        firstOperand = result.toString();
-        secondOperand = '';
-        displayText = firstOperand + ' ' + operator.toString();
-    }else{
-        displayText = operator;
-        operator = nuovoOperatore;
-    }
-    updateDisplay(displayText);
+  const nuovoOperatore = event.target.textContent;
+  if (!operator) {
+    operator = nuovoOperatore;
+    secondOperand = ''; // reset del secondo operando all'inizio
+    displayText = operator;
+  } else if (secondOperand != '') {
+    // controllo per divisione per 0
+    checkDivide();
+    const result = operate(firstOperand, secondOperand, operator);
+    firstOperand = result.toString();
+    operator = nuovoOperatore;
+    secondOperand = '';
+    displayText = firstOperand + ' ' + operator.toString();
+  } else {
+    displayText = operator;
+    operator = nuovoOperatore;
+  }
+  updateDisplay(displayText);
 }
 
 function handleClearClick() {
-    firstOperand = '';
-    operator = '';
-    secondOperand = '';
-    displayText = '';
-    updateDisplay(displayText);
+  firstOperand = '';
+  operator = '';
+  secondOperand = '';
+  displayText = '';
+  updateDisplay(displayText);
 }
 
 function handleEqualClick() {
-    if (firstOperand !== '' && operator && secondOperand !== '') {
-        const result = operate(firstOperand, secondOperand, operator);
-        firstOperand = result.toString();
-        operator = '';
-        secondOperand = '';
-    }
+  if (firstOperand !== '' && operator && secondOperand !== '') {
+    const result = operate(firstOperand, secondOperand, operator);
+    firstOperand = result.toString();
+    operator = '';
+    secondOperand = '';
     // con l'uguale devo mostrare a schermo il risultato dell'operazione
     updateDisplay(firstOperand);
+  }
 }
 
 function initCalculator() {
-    const buttons = document.querySelectorAll('button');
-
-    buttons.forEach((button) => {
-        if (button.dataset.type === 'number')
-            button.addEventListener('click', handleNumberClick);
-        else if (button.dataset.type === 'operator')
-            button.addEventListener('click', handleOperatorClick);
-        else if (button.dataset.type === 'clear')
-            button.addEventListener('click', handleClearClick);
-        else if (button.dataset.type === 'equals')
-            button.addEventListener('click', handleEqualClick);
-    });
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach((button) => {
+    if (button.dataset.type === 'number')
+      button.addEventListener('click', handleNumberClick);
+    else if (button.dataset.type === 'operator')
+      button.addEventListener('click', handleOperatorClick);
+    else if (button.dataset.type === 'clear')
+      button.addEventListener('click', handleClearClick);
+    else if (button.dataset.type === 'equals')
+      button.addEventListener('click', handleEqualClick);
+  });
 }
 
 function updateDisplay(value){
-    const display = document.querySelector('#display');
-    if(display){
-        display.textContent = value;
-    }
+  const display = document.querySelector('#display');
+  if(display){
+    display.textContent = value;
+  }
 }
 
 // Funzione per resettare lo stato, da chiamare nei test
 function resetCalculator() {
-    firstOperand = '';
-    operator = '';
-    secondOperand = '';
+  firstOperand = '';
+  operator = '';
+  secondOperand = '';
+  displayText = '';
+  updateDisplay(displayText);
+}
+
+function checkDivide(){
+  if (operator === '/' && secondOperand == 0){
+    alert('Divisione per 0');
+    resetCalculator();
+  }
 }
 
 function getFirstOperand() {
-    return firstOperand;
+  return firstOperand;
 }
 
 function getSecondOperand() {
-    return secondOperand;
+  return secondOperand;
 }
 
 function getOperator() {
-    return operator;
+  return operator;
 }
 
 function getDisplayText(){
-    return displayText;
+  return displayText;
 }
 
 initCalculator();
 
 module.exports = {
-    add,
-    substract,
-    multiply,
-    divide,
-    operate,
-    initCalculator,
-    getFirstOperand,
-    getSecondOperand,
-    getOperator,
-    getDisplayText,
-    resetCalculator,
+  add,
+  substract,
+  multiply,
+  divide,
+  operate,
+  initCalculator,
+  getFirstOperand,
+  getSecondOperand,
+  getOperator,
+  getDisplayText,
+  resetCalculator,
 };

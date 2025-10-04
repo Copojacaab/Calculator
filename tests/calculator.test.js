@@ -25,6 +25,8 @@ beforeEach(() => {
         <button data-type="number">2</button> 
         <button data-type="clear">C</button>
         <button data-type="equals">=</button>
+        <button data-type="operator">/</button>
+        <button data-type="number">0</button>
     </div>
   `;
   initCalculator();
@@ -115,4 +117,3 @@ test('aggiornamento secondOperator su display', () => {
   buttons[0].click();
   expect(getDisplayText()).toBe("21");
 });
-
