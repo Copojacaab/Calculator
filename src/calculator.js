@@ -20,6 +20,8 @@ function multiply(a, b) {
     return a * b;
 }
 function divide(a, b) {
+    if (b === 0)
+        alert('Divisione per 0 non possibile');
     return a / b;
 }
 
@@ -53,12 +55,20 @@ function handleNumberClick(event) {
 }
 
 function handleOperatorClick(event) {
+    const nuovoOperatore = event.target.textContent;
     if (!operator) {
-        operator = event.target.textContent;
+        operator = nuovoOperatore;
         secondOperand = '';  // reset del secondo operando all'inizio
         displayText = operator;
-    }else {
-
+    }else if (secondOperand != ''){
+        operator = nuovoOperatore;
+        const result = operate(firstOperand, secondOperand, operator);
+        firstOperand = result.toString();
+        secondOperand = '';
+        displayText = firstOperand + ' ' + operator.toString();
+    }else{
+        displayText = operator;
+        operator = nuovoOperatore;
     }
     updateDisplay(displayText);
 }
