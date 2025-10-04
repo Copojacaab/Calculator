@@ -23,11 +23,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if (b === 0){
-    alert('Divisione per 0 non possibile');
-    resetCalculator();
-    return;
-  }
+    if (b === 0){
+        return 'Errore';
+    }
   return a / b;
 }
 
@@ -68,12 +66,18 @@ function handleOperatorClick(event) {
     displayText = operator;
   } else if (secondOperand != '') {
     // controllo per divisione per 0
-    checkDivide();
     const result = operate(firstOperand, secondOperand, operator);
-    firstOperand = result.toString();
-    operator = nuovoOperatore;
-    secondOperand = '';
-    displayText = firstOperand + ' ' + operator.toString();
+
+    if (result === 'Errore'){
+        firstOperand = '';
+        operator = '';
+        displayText = 'Errore';
+    } else {
+        firstOperand = result.toString();
+        operator = nuovoOperatore;
+        secondOperand = '';
+        displayText = firstOperand + ' ' + operator.toString();
+    }
   } else {
     displayText = operator;
     operator = nuovoOperatore;
@@ -92,11 +96,18 @@ function handleClearClick() {
 function handleEqualClick() {
   if (firstOperand !== '' && operator && secondOperand !== '') {
     const result = operate(firstOperand, secondOperand, operator);
-    firstOperand = result.toString();
+
+    if(result === 'Errore'){
+        firstOperand = '';
+        displayText = result;
+    }else {
+        firstOperand = result.toString();
+        displayText = result.toString();
+    }
     operator = '';
     secondOperand = '';
     // con l'uguale devo mostrare a schermo il risultato dell'operazione
-    updateDisplay(firstOperand);
+    updateDisplay(displayText);
   }
 }
 
@@ -128,13 +139,6 @@ function resetCalculator() {
   secondOperand = '';
   displayText = '';
   updateDisplay(displayText);
-}
-
-function checkDivide(){
-  if (operator === '/' && secondOperand == 0){
-    alert('Divisione per 0');
-    resetCalculator();
-  }
 }
 
 function getFirstOperand() {
