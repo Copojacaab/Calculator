@@ -104,6 +104,18 @@ function handleOperatorClick(event) {
   updateDisplay(displayText);
 }
 
+function handleBackspaceClick(){
+  // check per capire se sono su first o su second
+  if (!operator){
+    firstOperand = firstOperand.slice(0, -1);
+    displayText = firstOperand;
+  } else {
+    secondOperand = secondOperand.slice(0,-1);
+    displayText = secondOperand;
+  }
+  updateDisplay(displayText);
+}
+
 function handleClearClick() {
   firstOperand = '';
   operator = '';
@@ -139,6 +151,8 @@ function initCalculator() {
       button.addEventListener('click', handleOperatorClick);
     else if (button.dataset.type === 'decimal')
         button.addEventListener('click', handleDecimalCLick);
+    else if (button.dataset.type === 'backspace')
+        button.addEventListener('click', handleBackspaceClick);
     else if (button.dataset.type === 'clear')
       button.addEventListener('click', handleClearClick);
     else if (button.dataset.type === 'equals')
