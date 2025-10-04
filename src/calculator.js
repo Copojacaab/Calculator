@@ -6,6 +6,9 @@ let secondOperand = '';
 // VALORE DA MOSTRARE SU DISPLAY
 let displayText = '';
 
+// FLAG PER OPERAZIONE CONCATENATA
+let readyForChain = false
+
 // BASIC OPERATION
 function add(a, b) {
     return a + b;
@@ -54,6 +57,8 @@ function handleOperatorClick(event) {
         operator = event.target.textContent;
         secondOperand = '';  // reset del secondo operando all'inizio
         displayText = operator;
+    }else {
+
     }
     updateDisplay(displayText);
 }
@@ -74,7 +79,7 @@ function handleEqualClick() {
         secondOperand = '';
     }
     // con l'uguale devo mostrare a schermo il risultato dell'operazione
-    
+    updateDisplay(firstOperand);
 }
 
 function initCalculator() {
@@ -118,6 +123,10 @@ function getOperator() {
     return operator;
 }
 
+function getDisplayText(){
+    return displayText;
+}
+
 initCalculator();
 
 module.exports = {
@@ -130,5 +139,6 @@ module.exports = {
     getFirstOperand,
     getSecondOperand,
     getOperator,
+    getDisplayText,
     resetCalculator,
 };

@@ -12,8 +12,8 @@ const {
   getFirstOperand,
   getSecondOperand,
   getOperator,
+  getDisplayText,
   resetCalculator,
-  updateDisplay,
 } = require('../src/calculator.js');
 
 beforeEach(() => {
@@ -87,4 +87,32 @@ test('cliccando un operatore e poi un numero modifica second operator', () => {
 });
 
 // DISPLAY
-test('a')
+test('aggiornamento firstOperand su display', () => {
+  const buttons = document.querySelectorAll('button[data-type="number"]');
+  buttons[0].click(); //1
+  expect(getDisplayText()).toBe("1");
+
+  buttons[0].click();
+  expect(getDisplayText()).toBe("11");
+});
+
+test('aggiornamento operator su display', () => {
+  const button = document.querySelector('button[data-type="operator"]');
+  button.click(); //+
+  expect(getDisplayText()).toBe('+');
+
+  button.click(); // operator-->operator = not allowed
+  expect(getDisplayText()).toBe('+');
+});
+
+test('aggiornamento secondOperator su display', () => {
+  const buttons = document.querySelectorAll('button');
+  //buttons[0].click(); // 1
+  buttons[1].click(); // +
+  buttons[2].click(); // 2
+  expect(getDisplayText()).toBe("2");
+
+  buttons[0].click();
+  expect(getDisplayText()).toBe("21");
+});
+
