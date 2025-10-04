@@ -29,6 +29,8 @@ quindi in pratica un numero puó essere seguito da qualunque cosa(numero o simbo
 solo al primo calcolo posso accettare 3 valori ((numero)*, simbolo, (numero)*) (oppure appena dopo che l'utente ha cliccato clean). 
 altrimenti devo sempre accettare o (numero)* o (simbolo).
 
+Per l'uso della tastiera vado a modificare l'html. Si puo' emulare un click sul pulsante corrispondente, lo possiamo fare aggiungendo un attributo data-key a ogni tasto nell'html con il valore corrispondente al tasto. In js controllo quale tasto e' stato premuto prendendo il valore event key del bottone, lo prendo all'interno dei bottoni con queryselector e ci chiamo sopra la funzione click
+
 ## Flusso
 1. Funzioni di base (JS)
 Scrivi quattro funzioni: add(a, b), subtract(a, b), multiply(a, b), divide(a, b).

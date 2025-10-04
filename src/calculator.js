@@ -53,6 +53,18 @@ function addDecimalToStr(str){
     return str + '.';
 }
 
+function handleKeypressed(event){
+  const keyPressed = event.key;
+  console.log(keyPressed + ' tipo: ' + typeof(keyPressed));
+  // prendo il bottone con il tasto corrispondente
+  const buttonPressed = document.querySelector(`button[data-key="${event.key}"]`);
+  if(buttonPressed === null){
+    return;
+  }
+  // simulo la pressione, ci pensa il programma da adesso
+  buttonPressed.click();
+}
+
 function handleNumberClick(event) {
   const nuovoNumero = event.target.textContent;
   if (!operator) {
@@ -76,6 +88,7 @@ function handleDecimalCLick(event){
   }
   updateDisplay(displayText);
 }
+
 
 function handleOperatorClick(event) {
   const nuovoOperatore = event.target.textContent;
@@ -143,6 +156,8 @@ function handleEqualClick() {
 }
 
 function initCalculator() {
+  document.addEventListener('keydown', handleKeypressed);
+
   const buttons = document.querySelectorAll('button');
   buttons.forEach((button) => {
     if (button.dataset.type === 'number')
@@ -155,7 +170,7 @@ function initCalculator() {
         button.addEventListener('click', handleBackspaceClick);
     else if (button.dataset.type === 'clear')
       button.addEventListener('click', handleClearClick);
-    else if (button.dataset.type === 'equals')
+    else if (button.dataset.type === 'equal')
       button.addEventListener('click', handleEqualClick);
   });
 }
