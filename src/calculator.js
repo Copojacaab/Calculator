@@ -46,6 +46,13 @@ function operate(firstOperand, secondOperand, operator) {
   }
 }
 
+function addDecimalToStr(str){
+  if(str.includes('.'))
+    return str;
+  else 
+    return str + '.';
+}
+
 function handleNumberClick(event) {
   const nuovoNumero = event.target.textContent;
   if (!operator) {
@@ -53,6 +60,18 @@ function handleNumberClick(event) {
     displayText = firstOperand;
   } else {
     secondOperand += nuovoNumero;
+    displayText = secondOperand;
+  }
+  updateDisplay(displayText);
+}
+
+function handleDecimalCLick(event){
+  // check se lavoro su first o su second
+  if(!operator){
+    firstOperand = addDecimalToStr(firstOperand);
+    displayText = firstOperand;
+  } else {
+    secondOperand = addDecimalToStr(secondOperand);
     displayText = secondOperand;
   }
   updateDisplay(displayText);
@@ -118,6 +137,8 @@ function initCalculator() {
       button.addEventListener('click', handleNumberClick);
     else if (button.dataset.type === 'operator')
       button.addEventListener('click', handleOperatorClick);
+    else if (button.dataset.type === 'decimal')
+        button.addEventListener('click', handleDecimalCLick);
     else if (button.dataset.type === 'clear')
       button.addEventListener('click', handleClearClick);
     else if (button.dataset.type === 'equals')
